@@ -6,7 +6,7 @@ import { fileRemover } from "../utils/fileRemover";
 
 const registerUser = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { firstname, lastname, username, email, password } = req.body;
 
     // check whether the user exists or not
     let user = await User.findOne({ email });
@@ -54,7 +54,9 @@ const loginUser = async (req, res, next) => {
       return res.status(201).json({
         _id: user._id,
         avatar: user.avatar,
-        name: user.name,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        username: user.username,
         email: user.email,
         verified: user.verified,
         admin: user.admin,
@@ -76,7 +78,9 @@ const userProfile = async (req, res, next) => {
       return res.status(201).json({
         _id: user._id,
         avatar: user.avatar,
-        name: user.name,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        username: user.username,
         email: user.email,
         verified: user.verified,
         admin: user.admin,
@@ -113,7 +117,9 @@ const updateProfile = async (req, res, next) => {
       user.admin = req.body.admin;
     }
 
-    user.name = req.body.name || user.name;
+    user.firstname = req.body.firstname || user.firstname;
+    user.lastname = req.body.lastname || user.lastname;
+    user.username = req.body.username || user.username;
     user.email = req.body.email || user.email;
     if (req.body.password && req.body.password.length < 6) {
       throw new Error("Password length must be at least 6 character");
@@ -126,7 +132,9 @@ const updateProfile = async (req, res, next) => {
     res.json({
       _id: updatedUserProfile._id,
       avatar: updatedUserProfile.avatar,
-      name: updatedUserProfile.name,
+      firstname: updatedUserProfile.firstname,
+      lastname: updatedUserProfile.lastname,
+      username: updatedUserProfile.username,
       email: updatedUserProfile.email,
       verified: updatedUserProfile.verified,
       admin: updatedUserProfile.admin,
@@ -161,7 +169,9 @@ const updateProfilePicture = async (req, res, next) => {
           res.json({
             _id: updatedUser._id,
             avatar: updatedUser.avatar,
-            name: updatedUser.name,
+            firstname: updatedUser.firstname,
+            lastname: updatedUser.lastname,
+            username: updatedUser.username,
             email: updatedUser.email,
             verified: updatedUser.verified,
             admin: updatedUser.admin,
@@ -177,7 +187,9 @@ const updateProfilePicture = async (req, res, next) => {
           res.json({
             _id: updatedUser._id,
             avatar: updatedUser.avatar,
-            name: updatedUser.name,
+            firstname: updatedUser.firstname,
+            lastname: updatedUser.lastname,
+            username: updatedUser.username,
             email: updatedUser.email,
             verified: updatedUser.verified,
             admin: updatedUser.admin,
